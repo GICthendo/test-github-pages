@@ -1,4 +1,4 @@
-name: Deploy static site to GitHub Pages
+name: Deploy static site to GitHub Pages (gh-pages branch)
 
 on:
   push:
@@ -6,10 +6,6 @@ on:
 
 jobs:
   deploy:
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,10 +17,10 @@ jobs:
           cp -r index.html public/ || true
           cp -r assets public/ 2>/dev/null || true
 
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v1
+      - name: Deploy to `gh-pages` branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: public
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          publish_dir: ./public
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          allow_empty_commit: true

@@ -1,4 +1,4 @@
-name: Deploy static site to GitHub Pages (gh-pages branch)
+name: Deploy static site to GitHub Pages (gh-pages branch)2
 
 on:
   push:
